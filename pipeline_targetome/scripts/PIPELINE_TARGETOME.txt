@@ -1,0 +1,6 @@
+chmod a+x scripts/INPUT.py
+python scripts/INPUT.py
+chmod a+x scripts/BLAST.txt
+scripts/BLAST.txt
+chmod a+x scripts/ANALYSIS.py
+python scripts/ANALYSIS.py
