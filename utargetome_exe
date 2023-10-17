@@ -1,0 +1,413 @@
+echo "
+
+HELLO, THANK YOU FOR USING UTARGETOME!
+
+"
+script_dir=$(dirname "$0")
+rm -rf $script_dir/bin/input/*
+while true; do
+  echo "please provide the directory for the query file (.fa format)"
+  read query_dir
+  if [ -e "$query_dir" ]; then
+    break
+  else
+    echo "file does not exist, please provide valid directory"
+  fi
+done
+cp $query_dir $script_dir/bin/input/query.fa
+while true; do
+  echo "please provide the directory for the genome assembly file (.fnsa format)"
+  read assembly_dir
+  if [ -e "$assembly_dir" ]; then
+    break
+  else
+    echo "file does not exist, please provide valid directory"
+  fi
+done
+cp $assembly_dir $script_dir/bin/input/assembly.fna
+while true; do
+  echo "please provide the directory for the genome annotation file (.gtf format)"
+  read annotation_dir
+  if [ -e "$annotation_dir" ]; then
+    break
+  else
+    echo "file does not exist, please provide valid directory"
+  fi
+done
+cp $annotation_dir $script_dir/bin/input/annotation.gtf
+while true; do
+  echo "please provide the directory for the output folder (as in /user/folder/"
+  read output_dir
+  if [ -d "$output_dir" ]; then
+    break
+  else
+    echo "directory does not exist, please provide valid directory"
+  fi
+done
+while true; do
+  echo "do you wish to input the search settings manually (yes/no)?"
+  read choice_settings
+  if [ "$choice_settings" = "yes" ]; then
+    break
+  elif [ "$choice_settings" = "no" ]; then
+    break
+  else
+    echo "invalid input, please enter 'yes' or 'no'"
+  fi
+done
+if [ "$choice_settings" = "no" ]; then
+	echo "database: 
+	exons: yes
+	introns: yes
+	5SSs: yes
+	3SSs: yes
+registers: 
+	full: 9
+	BS1: 9
+	BS2: 9
+	BA1: 9
+	BA2: 9
+	ALS: 9
+	ALA: 9
+positions: 
+	5SSs: overlapping
+	3SSs: overlapping
+print: 
+	exons: no
+	introns: no
+	5SSs: yes
+	3SSs: no
+partitions: 
+	number: 1" > $script_dir/bin/input/settings.txt
+fi
+if [ "$choice_settings" = "yes" ]; then
+	echo "database: " > $script_dir/bin/input/settings.txt
+	while true; do
+	  echo "searching for targets across exons (yes/no)?"
+	  read choice_exons
+	  if [ "$choice_exons" = "yes" ] || [ "$choice_exons" = "no" ]; then
+	    break
+	  else
+	    echo "invalid input, please enter 'yes' or 'no'"
+	  fi
+	done
+	echo "	exons: $choice_exons" >> $script_dir/bin/input/settings.txt
+	while true; do
+	  echo "searching for targets across introns (yes/no)?"
+	  read choice_introns
+	  if [ "$choice_introns" = "yes" ] || [ "$choice_introns" = "no" ]; then
+	    break
+	  else
+	    echo "invalid input, please enter 'yes' or 'no'"
+	  fi
+	done
+	echo "	introns: $choice_introns" >> $script_dir/bin/input/settings.txt
+	while true; do
+	  echo "searching for targets across 5'-SSs (yes/no)?"
+	  read choice_5SS
+	  if [ "$choice_5SS" = "yes" ] || [ "$choice_5SS" = "no" ]; then
+	    break
+	  else
+	    echo "invalid input, please enter 'yes' or 'no'"
+	  fi
+	done
+	echo "	5'-SSs: $choice_5SS" >> $script_dir/bin/input/settings.txt
+	while true; do
+	  echo "searching for targets across 3'-SSs (yes/no)?"
+	  read choice_3SS
+	  if [ "$choice_3SS" = "yes" ] || [ "$choice_3SS" = "no" ]; then
+	    break
+	  else
+	    echo "invalid input, please enter 'yes' or 'no'"
+	  fi
+	done
+	echo "	3'-SSs: $choice_3SS" >> $script_dir/bin/input/settings.txt
+	echo "registers: " >> $script_dir/bin/input/settings.txt
+	while true; do
+	  echo "what is the length of the antisense sequence (integer number)?"
+	  read antisense_length
+	  if [ "$antisense_length" -gt 0 ]; then
+	    break
+	  else
+	    echo "invalid input, please enter valid number"
+	  fi
+	done
+	while true; do
+	  echo "searching for targets without alternative registers (yes/no)?"
+	  read choice_value
+	  if [ "$choice_value" = "yes" ]; then
+		while true; do
+		  echo "how many minimum annealed base pairs (integer number ≤ antisense length and ≥ antisense length - 7)?"
+		  read min_annealed
+		  if [ "$min_annealed" -ge $(($antisense_length - 7)) ] && [ "$min_annealed" -le "$antisense_length" ]; then
+		    break
+		  else
+		    echo "invalid input, please enter valid number"
+		  fi
+		done
+		break
+	  elif [ "$choice_value" = "no" ]; then
+	    min_annealed="no"
+	    break
+	  else
+	    echo "invalid input, please enter 'yes' or 'no'"
+	  fi
+	done
+	echo "	full: $min_annealed" >> $script_dir/bin/input/settings.txt
+	while true; do
+	  echo "searching for targets with a single-nucleotide bulge on the sense strand (aka BS1, yes/no)?"
+	  read choice_value
+	  if [ "$choice_value" = "yes" ]; then
+		while true; do
+		  echo "how many minimum annealed base pairs (integer number ≤ antisense length and ≥ antisense length - 7)?"
+		  read min_annealed
+		  if [ "$min_annealed" -ge $(($antisense_length - 7)) ] && [ "$min_annealed" -le "$antisense_length" ]; then
+		    break
+		  else
+		    echo "invalid input, please enter valid number"
+		  fi
+		done
+		break
+	  elif [ "$choice_value" = "no" ]; then
+	    min_annealed="no"
+	    break
+	  else
+	    echo "invalid input, please enter 'yes' or 'no'"
+	  fi
+	done
+	echo "	BS1: $min_annealed" >> $script_dir/bin/input/settings.txt
+	while true; do
+	  echo "searching for targets with a double-nucleotide bulge on the sense strand (aka BS2, yes/no)?"
+	  read choice_value
+	  if [ "$choice_value" = "yes" ]; then
+		while true; do
+		  echo "how many minimum annealed base pairs (integer number ≤ antisense length and ≥ antisense length - 7)?"
+		  read min_annealed
+		  if [ "$min_annealed" -ge $(($antisense_length - 7)) ] && [ "$min_annealed" -le "$antisense_length" ]; then
+		    break
+		  else
+		    echo "invalid input, please enter valid number"
+		  fi
+		done
+		break
+	  elif [ "$choice_value" = "no" ]; then
+	    min_annealed="no"
+	    break
+	  else
+	    echo "invalid input, please enter 'yes' or 'no'"
+	  fi
+	done
+	echo "	BS2: $min_annealed" >> $script_dir/bin/input/settings.txt
+	while true; do
+	  echo "searching for targets with a single-nucleotide bulge on the antisense strand (aka BA1, yes/no)?"
+	  read choice_value
+	  if [ "$choice_value" = "yes" ]; then
+		while true; do
+		  echo "how many minimum annealed base pairs (integer number ≤ antisense length - 1 and ≥ antisense length - 7)?"
+		  read min_annealed
+		  if [ "$min_annealed" -ge $(($antisense_length - 7)) ] && [ "$min_annealed" -le $(($antisense_length - 1)) ]; then
+		    break
+		  else
+		    echo "invalid input, please enter valid number"
+		  fi
+		done
+		break
+	  elif [ "$choice_value" = "no" ]; then
+	    min_annealed="no"
+	    break
+	  else
+	    echo "invalid input, please enter 'yes' or 'no'"
+	  fi
+	done
+	echo "	BA1: $min_annealed" >> $script_dir/bin/input/settings.txt
+	while true; do
+	  echo "searching for targets with a double-nucleotide bulge on the antisense strand (aka BA2, yes/no)?"
+	  read choice_value
+	  if [ "$choice_value" = "yes" ]; then
+		while true; do
+		  echo "how many minimum annealed base pairs (integer number ≤ antisense length - 2 and ≥ antisense length - 7)?"
+		  read min_annealed
+		  if [ "$min_annealed" -ge $(($antisense_length - 7)) ] && [ "$min_annealed" -le $(($antisense_length - 2)) ]; then
+		    break
+		  else
+		    echo "invalid input, please enter valid number"
+		  fi
+		done
+		break
+	  elif [ "$choice_value" = "no" ]; then
+	    min_annealed="no"
+	    break
+	  else
+	    echo "invalid input, please enter 'yes' or 'no'"
+	  fi
+	done
+	echo "	BA2: $min_annealed" >> $script_dir/bin/input/settings.txt
+	while true; do
+	  echo "searching for targets with an asymmetric loop carrying the long side on the sense strand (aka ALS, yes/no)?"
+	  read choice_value
+	  if [ "$choice_value" = "yes" ]; then
+		while true; do
+		  echo "how many minimum annealed base pairs (integer number ≤ antisense length - 1 and ≥ antisense length - 7)?"
+		  read min_annealed
+		  if [ "$min_annealed" -ge $(($antisense_length - 7)) ] && [ "$min_annealed" -le $(($antisense_length - 1)) ]; then
+		    break
+		  else
+		    echo "invalid input, please enter valid number"
+		  fi
+		done
+		break
+	  elif [ "$choice_value" = "no" ]; then
+	    min_annealed="no"
+	    break
+	  else
+	    echo "invalid input, please enter 'yes' or 'no'"
+	  fi
+	done
+	echo "	ALS: $min_annealed" >> $script_dir/bin/input/settings.txt
+	while true; do
+	  echo "searching for targets with an asymmetric loop carrying the long side on the antisense strand (aka ALA, yes/no)?"
+	  read choice_value
+	  if [ "$choice_value" = "yes" ]; then
+		while true; do
+		  echo "how many minimum annealed base pairs (integer number ≤ antisense length - 2 and ≥ antisense length - 7)?"
+		  read min_annealed
+		  if [ "$min_annealed" -ge $(($antisense_length - 7)) ] && [ "$min_annealed" -le $(($antisense_length - 2)) ]; then
+		    break
+		  else
+		    echo "invalid input, please enter valid number"
+		  fi
+		done
+		break
+	  elif [ "$choice_value" = "no" ]; then
+	    min_annealed="no"
+	    break
+	  else
+	    echo "invalid input, please enter 'yes' or 'no'"
+	  fi
+	done
+	echo "	ALA: $min_annealed" >> $script_dir/bin/input/settings.txt
+	echo "positions: " >> $script_dir/bin/input/settings.txt
+	if [ "$choice_5SS" = "yes" ]; then
+		while true; do
+		  echo "choose the range around 5'SSs within which targets must be searched ('range', 'cumulative', 'overlapping' or 'n1,n2,n3,...n')?"
+		  read choice_value
+		  if [ "$choice_value" = "range" ] || [ "$choice_value" = "cumulative" ] || [ "$choice_value" = "overlapping" ] || [ "$choice_value" = "cumulative" ]; then
+		    break
+		  elif [ $(echo $choice_value | tr -d ",+-") -gt 0 ]; then
+		    break
+		  else
+		    echo "invalid input, please enter 'range', 'cumulative', 'overlapping' or 'n1,n2,n3,...n'"
+		  fi
+		done
+	elif [ "$choice_5SS" = "no" ]; then
+		choice_value="no"
+	fi
+	echo "	5SSs: $choice_value" >> $script_dir/bin/input/settings.txt
+	if [ "$choice_3SS" = "yes" ]; then
+		while true; do
+		  echo "choose the range around 3'SSs within which targets must be searched ('range', 'cumulative', 'overlapping' or 'n1,n2,n3,...n')?"
+		  read choice_value
+		  if [ "$choice_value" = "range" ] || [ "$choice_value" = "cumulative" ] || [ "$choice_value" = "overlapping" ] || [ "$choice_value" = "cumulative" ]; then
+		    break
+		  elif [ $(echo $choice_value | tr -d ",+-") -gt 0 ]; then
+		    break
+		  else
+		    echo "invalid input, please enter 'range', 'cumulative', 'overlapping' or 'n1,n2,n3,...n'"
+		  fi
+		done
+	elif [ "$choice_3SS" = "no" ]; then
+		choice_value="no"
+	fi
+	echo "	3SSs: $choice_value" >> $script_dir/bin/input/settings.txt
+	echo "print: " >> $script_dir/bin/input/settings.txt
+	if [ "$choice_exons" = "yes" ]; then
+		while true; do
+		  echo "do wish to print all targets inside exons ('yes' or 'no')?"
+		  read choice_value
+		  if [ "$choice_value" = "yes" ] || [ "$choice_value" = "no" ]; then
+		    break
+		  else
+		    echo "invalid input, please enter 'yes' or 'no'"
+		  fi
+		done
+	elif [ "$choice_exons" = "no" ]; then
+		choice_value="no"
+	fi
+	echo "	exons: $choice_value" >> $script_dir/bin/input/settings.txt
+	if [ "$choice_introns" = "yes" ]; then
+		while true; do
+		  echo "do wish to print all targets inside introns ('yes' or 'no')?"
+		  read choice_value
+		  if [ "$choice_value" = "yes" ] || [ "$choice_value" = "no" ]; then
+		    break
+		  else
+		    echo "invalid input, please enter 'yes' or 'no'"
+		  fi
+		done
+	elif [ "$choice_introns" = "no" ]; then
+		choice_value="no"
+	fi
+	echo "	introns: $choice_value" >> $script_dir/bin/input/settings.txt
+	if [ "$choice_5SS" = "yes" ]; then
+		while true; do
+		  echo "do wish to print all targets inside 5'-SSs ('yes' or 'no')?"
+		  read choice_value
+		  if [ "$choice_value" = "yes" ] || [ "$choice_value" = "no" ]; then
+		    break
+		  else
+		    echo "invalid input, please enter 'yes' or 'no'"
+		  fi
+		done
+	elif [ "$choice_5SS" = "no" ]; then
+		choice_value="no"
+	fi
+	echo "	5SSs: $choice_value" >> $script_dir/bin/input/settings.txt
+	if [ "$choice_3SS" = "yes" ]; then
+		while true; do
+		  echo "do wish to print all targets inside 3'-SSs ('yes' or 'no')?"
+		  read choice_value
+		  if [ "$choice_value" = "yes" ] || [ "$choice_value" = "no" ]; then
+		    break
+		  else
+		    echo "invalid input, please enter 'yes' or 'no'"
+		  fi
+		done
+	elif [ "$choice_3SS" = "no" ]; then
+		choice_value="no"
+	fi
+	echo "	3SSs: $choice_value" >> $script_dir/bin/input/settings.txt
+	echo "partitions: " >> $script_dir/bin/input/settings.txt
+	while true; do
+	  echo "how many partitions do you want to use for the database (integer number > 0)?"
+	  read choice_value
+	  if [ "$choice_value" -gt 0 ]; then
+	    break
+	  else
+	    echo "invalid input, please enter valid number"
+	  fi
+	done
+	echo "	number: $choice_value" >> $script_dir/bin/input/settings.txt
+fi
+cd $script_dir/bin
+echo "
+"
+chmod a+x scripts/INPUT.py
+python scripts/INPUT.py
+echo "
+
+RUNNING BLAST (PLEASE IGNORE WARNING MESSAGES)"
+chmod a+x scripts/BLAST.txt
+scripts/BLAST.txt
+echo "
+
+RUNNING ANALYSIS
+
+"
+chmod a+x scripts/ANALYSIS.py
+python scripts/ANALYSIS.py
+if [ -d $output_dir/utargetome_output ]; then
+  rm -r $output_dir/utargetome_output
+fi
+mkdir $output_dir/utargetome_output
+mv results/* $output_dir/utargetome_output
+rm -rf input/*
