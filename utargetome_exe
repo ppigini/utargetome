@@ -111,7 +111,7 @@ if [ "$choice_settings" = "yes" ]; then
 	    echo "invalid input, please enter 'yes' or 'no'"
 	  fi
 	done
-	echo "	5'-SSs: $choice_5SS" >> $script_dir/bin/input/settings.txt
+	echo "	5SSs: $choice_5SS" >> $script_dir/bin/input/settings.txt
 	while true; do
 	  echo "searching for targets across 3'-SSs (yes/no)?"
 	  read choice_3SS
@@ -121,7 +121,7 @@ if [ "$choice_settings" = "yes" ]; then
 	    echo "invalid input, please enter 'yes' or 'no'"
 	  fi
 	done
-	echo "	3'-SSs: $choice_3SS" >> $script_dir/bin/input/settings.txt
+	echo "	3SSs: $choice_3SS" >> $script_dir/bin/input/settings.txt
 	echo "registers: " >> $script_dir/bin/input/settings.txt
 	while true; do
 	  echo "what is the length of the antisense sequence (integer number)?"
@@ -133,7 +133,7 @@ if [ "$choice_settings" = "yes" ]; then
 	  fi
 	done
 	while true; do
-	  echo "searching for targets without alternative registers (yes/no)?"
+	  echo "searching for targets without alternative registers (aka 'full', yes/no)?"
 	  read choice_value
 	  if [ "$choice_value" = "yes" ]; then
 		while true; do
@@ -155,7 +155,7 @@ if [ "$choice_settings" = "yes" ]; then
 	done
 	echo "	full: $min_annealed" >> $script_dir/bin/input/settings.txt
 	while true; do
-	  echo "searching for targets with a single-nucleotide bulge on the sense strand (aka BS1, yes/no)?"
+	  echo "searching for targets with a single-nucleotide bulge on the sense strand (aka 'BS1', yes/no)?"
 	  read choice_value
 	  if [ "$choice_value" = "yes" ]; then
 		while true; do
@@ -177,7 +177,7 @@ if [ "$choice_settings" = "yes" ]; then
 	done
 	echo "	BS1: $min_annealed" >> $script_dir/bin/input/settings.txt
 	while true; do
-	  echo "searching for targets with a double-nucleotide bulge on the sense strand (aka BS2, yes/no)?"
+	  echo "searching for targets with a double-nucleotide bulge on the sense strand (aka 'BS2', yes/no)?"
 	  read choice_value
 	  if [ "$choice_value" = "yes" ]; then
 		while true; do
@@ -199,7 +199,7 @@ if [ "$choice_settings" = "yes" ]; then
 	done
 	echo "	BS2: $min_annealed" >> $script_dir/bin/input/settings.txt
 	while true; do
-	  echo "searching for targets with a single-nucleotide bulge on the antisense strand (aka BA1, yes/no)?"
+	  echo "searching for targets with a single-nucleotide bulge on the antisense strand (aka 'BA1', yes/no)?"
 	  read choice_value
 	  if [ "$choice_value" = "yes" ]; then
 		while true; do
@@ -221,7 +221,7 @@ if [ "$choice_settings" = "yes" ]; then
 	done
 	echo "	BA1: $min_annealed" >> $script_dir/bin/input/settings.txt
 	while true; do
-	  echo "searching for targets with a double-nucleotide bulge on the antisense strand (aka BA2, yes/no)?"
+	  echo "searching for targets with a double-nucleotide bulge on the antisense strand (aka 'BA2', yes/no)?"
 	  read choice_value
 	  if [ "$choice_value" = "yes" ]; then
 		while true; do
@@ -243,7 +243,7 @@ if [ "$choice_settings" = "yes" ]; then
 	done
 	echo "	BA2: $min_annealed" >> $script_dir/bin/input/settings.txt
 	while true; do
-	  echo "searching for targets with an asymmetric loop carrying the long side on the sense strand (aka ALS, yes/no)?"
+	  echo "searching for targets with an asymmetric loop carrying the long side on the sense strand (aka 'ALS', yes/no)?"
 	  read choice_value
 	  if [ "$choice_value" = "yes" ]; then
 		while true; do
@@ -265,7 +265,7 @@ if [ "$choice_settings" = "yes" ]; then
 	done
 	echo "	ALS: $min_annealed" >> $script_dir/bin/input/settings.txt
 	while true; do
-	  echo "searching for targets with an asymmetric loop carrying the long side on the antisense strand (aka ALA, yes/no)?"
+	  echo "searching for targets with an asymmetric loop carrying the long side on the antisense strand (aka 'ALA', yes/no)?"
 	  read choice_value
 	  if [ "$choice_value" = "yes" ]; then
 		while true; do
@@ -289,7 +289,7 @@ if [ "$choice_settings" = "yes" ]; then
 	echo "positions: " >> $script_dir/bin/input/settings.txt
 	if [ "$choice_5SS" = "yes" ]; then
 		while true; do
-		  echo "choose the range around 5'SSs within which targets must be searched ('range', 'cumulative', 'overlapping' or 'n1,n2,n3,...n')?"
+		  echo "choose the type of range around 5'SSs within which targets must be searched ('range', 'cumulative', 'overlapping' or 'n1,n2,n3,...n')?"
 		  read choice_value
 		  if [ "$choice_value" = "range" ] || [ "$choice_value" = "cumulative" ] || [ "$choice_value" = "overlapping" ] || [ "$choice_value" = "cumulative" ]; then
 		    break
@@ -305,7 +305,7 @@ if [ "$choice_settings" = "yes" ]; then
 	echo "	5SSs: $choice_value" >> $script_dir/bin/input/settings.txt
 	if [ "$choice_3SS" = "yes" ]; then
 		while true; do
-		  echo "choose the range around 3'SSs within which targets must be searched ('range', 'cumulative', 'overlapping' or 'n1,n2,n3,...n')?"
+		  echo "choose the type of range around 3'SSs within which targets must be searched ('range', 'cumulative', 'overlapping' or 'n1,n2,n3,...n')?"
 		  read choice_value
 		  if [ "$choice_value" = "range" ] || [ "$choice_value" = "cumulative" ] || [ "$choice_value" = "overlapping" ] || [ "$choice_value" = "cumulative" ]; then
 		    break
@@ -322,7 +322,7 @@ if [ "$choice_settings" = "yes" ]; then
 	echo "print: " >> $script_dir/bin/input/settings.txt
 	if [ "$choice_exons" = "yes" ]; then
 		while true; do
-		  echo "do wish to print all targets inside exons ('yes' or 'no')?"
+		  echo "do you wish to print all targets inside exons ('yes' or 'no')?"
 		  read choice_value
 		  if [ "$choice_value" = "yes" ] || [ "$choice_value" = "no" ]; then
 		    break
@@ -336,7 +336,7 @@ if [ "$choice_settings" = "yes" ]; then
 	echo "	exons: $choice_value" >> $script_dir/bin/input/settings.txt
 	if [ "$choice_introns" = "yes" ]; then
 		while true; do
-		  echo "do wish to print all targets inside introns ('yes' or 'no')?"
+		  echo "do you wish to print all targets inside introns ('yes' or 'no')?"
 		  read choice_value
 		  if [ "$choice_value" = "yes" ] || [ "$choice_value" = "no" ]; then
 		    break
@@ -350,7 +350,7 @@ if [ "$choice_settings" = "yes" ]; then
 	echo "	introns: $choice_value" >> $script_dir/bin/input/settings.txt
 	if [ "$choice_5SS" = "yes" ]; then
 		while true; do
-		  echo "do wish to print all targets inside 5'-SSs ('yes' or 'no')?"
+		  echo "do you wish to print all targets inside 5'-SSs ('yes' or 'no')?"
 		  read choice_value
 		  if [ "$choice_value" = "yes" ] || [ "$choice_value" = "no" ]; then
 		    break
@@ -364,7 +364,7 @@ if [ "$choice_settings" = "yes" ]; then
 	echo "	5SSs: $choice_value" >> $script_dir/bin/input/settings.txt
 	if [ "$choice_3SS" = "yes" ]; then
 		while true; do
-		  echo "do wish to print all targets inside 3'-SSs ('yes' or 'no')?"
+		  echo "do you wish to print all targets inside 3'-SSs ('yes' or 'no')?"
 		  read choice_value
 		  if [ "$choice_value" = "yes" ] || [ "$choice_value" = "no" ]; then
 		    break
