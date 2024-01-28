@@ -36,7 +36,7 @@ while true; do
 done
 cp $annotation_dir $script_dir/bin/input/annotation.gtf
 while true; do
-  echo "please provide the directory for the output folder (as in /user/folder/"
+  echo "please provide the directory for the output folder (as in /user/folder/)"
   read output_dir
   if [ -d "$output_dir" ]; then
     break
@@ -45,7 +45,7 @@ while true; do
   fi
 done
 while true; do
-  echo "do you wish to input the search settings manually (yes/no)?"
+  echo "do you wish to input the search settings manually (yes/no, if 'no' default settings will apply)?"
   read choice_settings
   if [ "$choice_settings" = "yes" ]; then
     break
