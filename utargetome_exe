@@ -137,7 +137,7 @@ if [ "$choice_settings" = "yes" ]; then
 	  read choice_value
 	  if [ "$choice_value" = "yes" ]; then
 		while true; do
-		  echo "how many minimum annealed base pairs (integer number ≤ antisense length and ≥ antisense length - 7)?"
+		  echo "minimum number of annealed base pairs (integer number ≤ antisense length and ≥ antisense length - 7)?"
 		  read min_annealed
 		  if [ "$min_annealed" -ge $(($antisense_length - 7)) ] && [ "$min_annealed" -le "$antisense_length" ]; then
 		    break
@@ -159,7 +159,7 @@ if [ "$choice_settings" = "yes" ]; then
 	  read choice_value
 	  if [ "$choice_value" = "yes" ]; then
 		while true; do
-		  echo "how many minimum annealed base pairs (integer number ≤ antisense length and ≥ antisense length - 7)?"
+		  echo "minimum number of annealed base pairs (integer number ≤ antisense length and ≥ antisense length - 7)?"
 		  read min_annealed
 		  if [ "$min_annealed" -ge $(($antisense_length - 7)) ] && [ "$min_annealed" -le "$antisense_length" ]; then
 		    break
@@ -181,7 +181,7 @@ if [ "$choice_settings" = "yes" ]; then
 	  read choice_value
 	  if [ "$choice_value" = "yes" ]; then
 		while true; do
-		  echo "how many minimum annealed base pairs (integer number ≤ antisense length and ≥ antisense length - 7)?"
+		  echo "minimum number of annealed base pairs (integer number ≤ antisense length and ≥ antisense length - 7)?"
 		  read min_annealed
 		  if [ "$min_annealed" -ge $(($antisense_length - 7)) ] && [ "$min_annealed" -le "$antisense_length" ]; then
 		    break
@@ -203,7 +203,7 @@ if [ "$choice_settings" = "yes" ]; then
 	  read choice_value
 	  if [ "$choice_value" = "yes" ]; then
 		while true; do
-		  echo "how many minimum annealed base pairs (integer number ≤ antisense length - 1 and ≥ antisense length - 7)?"
+		  echo "minimum number of annealed base pairs (integer number ≤ antisense length - 1 and ≥ antisense length - 7)?"
 		  read min_annealed
 		  if [ "$min_annealed" -ge $(($antisense_length - 7)) ] && [ "$min_annealed" -le $(($antisense_length - 1)) ]; then
 		    break
@@ -225,7 +225,7 @@ if [ "$choice_settings" = "yes" ]; then
 	  read choice_value
 	  if [ "$choice_value" = "yes" ]; then
 		while true; do
-		  echo "how many minimum annealed base pairs (integer number ≤ antisense length - 2 and ≥ antisense length - 7)?"
+		  echo "minimum number of annealed base pairs (integer number ≤ antisense length - 2 and ≥ antisense length - 7)?"
 		  read min_annealed
 		  if [ "$min_annealed" -ge $(($antisense_length - 7)) ] && [ "$min_annealed" -le $(($antisense_length - 2)) ]; then
 		    break
@@ -247,7 +247,7 @@ if [ "$choice_settings" = "yes" ]; then
 	  read choice_value
 	  if [ "$choice_value" = "yes" ]; then
 		while true; do
-		  echo "how many minimum annealed base pairs (integer number ≤ antisense length - 1 and ≥ antisense length - 7)?"
+		  echo "minimum number of annealed base pairs (integer number ≤ antisense length - 1 and ≥ antisense length - 7)?"
 		  read min_annealed
 		  if [ "$min_annealed" -ge $(($antisense_length - 7)) ] && [ "$min_annealed" -le $(($antisense_length - 1)) ]; then
 		    break
@@ -269,7 +269,7 @@ if [ "$choice_settings" = "yes" ]; then
 	  read choice_value
 	  if [ "$choice_value" = "yes" ]; then
 		while true; do
-		  echo "how many minimum annealed base pairs (integer number ≤ antisense length - 2 and ≥ antisense length - 7)?"
+		  echo "minimum number of annealed base pairs (integer number ≤ antisense length - 2 and ≥ antisense length - 7)?"
 		  read min_annealed
 		  if [ "$min_annealed" -ge $(($antisense_length - 7)) ] && [ "$min_annealed" -le $(($antisense_length - 2)) ]; then
 		    break
