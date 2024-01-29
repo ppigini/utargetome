@@ -1215,7 +1215,7 @@ def INPUT():
                                                   a,
                                                   '_',
                                                   str(b + 1),
-                                                  '.txt']))
+                                                  '.txt 2>/dev/null']))
                             output.write('\n')
                             output.write(''.join(['grep -e "Query=" -e ">" -e "Sbjct" temp/BLAST/BLAST_',
                                                   c,
@@ -1255,7 +1255,7 @@ def INPUT():
                                              a,
                                              '_',
                                              str(b + 1),
-                                             '.txt']))
+                                             '.txt 2>/dev/null']))
                                 output.write('\n')
                                 output.write(''.join(['grep -e "Query=" -e ">" -e "Sbjct" temp/BLAST/BLAST_',
                                                       'mm',
@@ -1298,7 +1298,7 @@ def INPUT():
                                                   a,
                                                   '_',
                                                   str(b + 1),
-                                                  '.txt']))
+                                                  '.txt 2>/dev/null']))
                             output.write('\n')
                             output.write(''.join(['grep -e "Query=" -e ">" -e "Sbjct" temp/BLAST/BLAST_',
                                                   c,
@@ -1338,7 +1338,7 @@ def INPUT():
                                              a,
                                              '_',
                                              str(b + 1),
-                                             '.txt']))
+                                             '.txt 2>/dev/null']))
                                 output.write('\n')
                                 output.write(''.join(['grep -e "Query=" -e ">" -e "Sbjct" temp/BLAST/BLAST_',
                                                       'mm',
@@ -1381,7 +1381,7 @@ def INPUT():
                                                   a,
                                                   '_',
                                                   str(b + 1),
-                                                  '.txt']))
+                                                  '.txt 2>/dev/null']))
                             output.write('\n')
                             output.write(''.join(['grep -e "Query=" -e ">" -e "Sbjct" temp/BLAST/BLAST_',
                                                   c,
@@ -1421,7 +1421,7 @@ def INPUT():
                                              a,
                                              '_',
                                              str(b + 1),
-                                             '.txt']))
+                                             '.txt 2>/dev/null']))
                                 output.write('\n')
                                 output.write(''.join(['grep -e "Query=" -e ">" -e "Sbjct" temp/BLAST/BLAST_',
                                                       'mm',
@@ -1464,7 +1464,7 @@ def INPUT():
                                                   a,
                                                   '_',
                                                   str(b + 1),
-                                                  '.txt']))
+                                                  '.txt 2>/dev/null']))
                             output.write('\n')
                             output.write(''.join(['grep -e "Query=" -e ">" -e "Sbjct" temp/BLAST/BLAST_',
                                                   c,
@@ -1504,7 +1504,7 @@ def INPUT():
                                              a,
                                              '_',
                                              str(b + 1),
-                                             '.txt']))
+                                             '.txt 2>/dev/null']))
                                 output.write('\n')
                                 output.write(''.join(['grep -e "Query=" -e ">" -e "Sbjct" temp/BLAST/BLAST_',
                                                       'mm',
@@ -1547,7 +1547,7 @@ def INPUT():
                                                   a,
                                                   '_',
                                                   str(b + 1),
-                                                  '.txt']))
+                                                  '.txt 2>/dev/null']))
                             output.write('\n')
                             output.write(''.join(['grep -e "Query=" -e ">" -e "Sbjct" temp/BLAST/BLAST_',
                                                   c,
@@ -1587,7 +1587,7 @@ def INPUT():
                                              a,
                                              '_',
                                              str(b + 1),
-                                             '.txt']))
+                                             '.txt 2>/dev/null']))
                                 output.write('\n')
                                 output.write(''.join(['grep -e "Query=" -e ">" -e "Sbjct" temp/BLAST/BLAST_',
                                                       'mm',
@@ -1630,7 +1630,7 @@ def INPUT():
                                                   a,
                                                   '_',
                                                   str(b + 1),
-                                                  '.txt']))
+                                                  '.txt 2>/dev/null']))
                             output.write('\n')
                             output.write(''.join(['grep -e "Query=" -e ">" -e "Sbjct" temp/BLAST/BLAST_',
                                                   c,
@@ -1670,7 +1670,7 @@ def INPUT():
                                              a,
                                              '_',
                                              str(b + 1),
-                                             '.txt']))
+                                             '.txt 2>/dev/null']))
                                 output.write('\n')
                                 output.write(''.join(['grep -e "Query=" -e ">" -e "Sbjct" temp/BLAST/BLAST_',
                                                       'mm',
@@ -1713,7 +1713,7 @@ def INPUT():
                                                   a,
                                                   '_',
                                                   str(b + 1),
-                                                  '.txt']))
+                                                  '.txt 2>/dev/null']))
                             output.write('\n')
                             output.write(''.join(['grep -e "Query=" -e ">" -e "Sbjct" temp/BLAST/BLAST_',
                                                   c,
@@ -1753,7 +1753,7 @@ def INPUT():
                                              a,
                                              '_',
                                              str(b + 1),
-                                             '.txt']))
+                                             '.txt 2>/dev/null']))
                                 output.write('\n')
                                 output.write(''.join(['grep -e "Query=" -e ">" -e "Sbjct" temp/BLAST/BLAST_',
                                                       'mm',
