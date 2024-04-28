@@ -10,7 +10,7 @@ python scripts/input.py
 
 echo "
 
-RUNNING BLAST (PLEASE IGNORE WARNING MESSAGES)"
+RUNNING BLAST"
 
 chmod a+x scripts/blast.txt
 scripts/blast.txt
