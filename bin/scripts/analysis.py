@@ -2,6 +2,8 @@ def ANALYSIS():
     # SETUP
     import os
     directory = os.getcwd()
+    if 'results' not in os.listdir(directory, '/temp'):
+        os.mkdir(''.join([directory, '/results']))
     for a in os.listdir(''.join([directory, '/results/'])):
         os.remove(os.path.join(''.join([directory, '/results/']), a))
     # READING THE SETTINGS
@@ -32,6 +34,7 @@ def ANALYSIS():
                  'ALS' : {}, 'mm1_ALS' : {}, 'mm2_ALS' : {}, 'mm3_ALS' : {}, 'mm4_ALS' : {}, 'mm5_ALS' : {}, 'mm6_ALS' : {},
                  'ALA' : {}, 'mm1_ALA' : {}, 'mm2_ALA' : {}, 'mm3_ALA' : {}, 'mm4_ALA' : {}, 'mm5_ALA' : {}}
     for x in databases:  # all output files are analyzed
+        print('analyzing:', x)
         if x in ['5SSs', '3SSs']: # defining the positions for the splice sites (NOTE: POSITION "98" EQUALS "-3")
             if settings['positions'][x] == 'range':
                 positions = []
@@ -71,7 +74,6 @@ def ANALYSIS():
             results_print = {}
         # COLLECTING THE HITS FOR EACH REGISTER
         for y in registers:
-            print('analyzing:', x, y)
             if 'norm' in y:
                 register = 'norm'
             elif 'BS1' in y:
@@ -194,7 +196,6 @@ def ANALYSIS():
                                    'ALS', 'mm1_ALS', 'mm2_ALS', 'mm3_ALS', 'mm4_ALS', 'mm5_ALS', 'mm6_ALS',
                                    'ALA', 'mm1_ALA', 'mm2_ALA', 'mm3_ALA', 'mm4_ALA', 'mm5_ALA']]
         for y in registers_combinations:  # counting for each combination
-            print('counting:', x, '+'.join(y))
             results_registers['+'.join(y)] = []
             for z in y:
                 # establishing the register
