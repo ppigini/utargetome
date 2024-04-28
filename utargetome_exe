@@ -25,12 +25,7 @@ RUNNING ANALYSIS
 chmod a+x scripts/analysis.py
 python scripts/analysis.py
 
-
-if [ -d $output_dir/utargetome_output ]; then
-  rm -r $output_dir/utargetome_output
-fi
-mkdir $output_dir/utargetome_output
-mv results/* $output_dir/utargetome_output
-rm -rf input/*
-rm -rf temp/BLAST/*
-rm -rf temp/targetome/*
+mv ./results/* $output_dir/utargetome_output
+rm -rf ./input/*
+rm -rf ./temp/BLAST/*
+rm -rf ./temp/targetome/*
