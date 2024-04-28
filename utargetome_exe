@@ -16,16 +16,12 @@ chmod a+x scripts/blast.txt
 scripts/blast.txt
 
 
-echo "
-
-RUNNING ANALYSIS
+echo "RUNNING ANALYSIS
 
 "
 
 chmod a+x scripts/analysis.py
 python scripts/analysis.py
 
-mv ./results/* $output_dir/utargetome_output
-rm -rf ./input/*
-rm -rf ./temp/BLAST/*
-rm -rf ./temp/targetome/*
+chmod a+x scripts/export.txt
+scripts/export.txt
