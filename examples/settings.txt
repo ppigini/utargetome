@@ -1,0 +1,23 @@
+database: 
+	exons: y
+	introns: y
+	5SSs: y
+	3SSs: y
+registers: 
+	full: 9
+	BS1: 9
+	BS2: 9
+	BA1: 9
+	BA2: 9
+	ALS: 9
+	ALA: 9
+positions: 
+	5SSs: overlapping
+	3SSs: overlapping
+print: 
+	exons: n
+	introns: n
+	5SSs: y
+	3SSs: n
+partitions: 
+	number: 1
