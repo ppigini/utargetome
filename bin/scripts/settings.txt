@@ -68,9 +68,14 @@ if [ -d $output_dir/utargetome_output ]; then
   rm -r $output_dir/utargetome_output
 fi
 mkdir -p $output_dir/utargetome_output
+echo "output_dir=$output_dir
+mv ./results/* $output_dir/utargetome_output
+rm -rf ./input/*
+rm -rf ./temp/BLAST/*
+rm -rf ./temp/targetome/*" > scripts/export.txt
 
 while true; do
-  echo "do you wish to input the search settings (y/n, if 'n' default settings will apply)?"
+  echo "do you wish to customize the search settings (y/n, if 'n' default settings will apply)?"
   read choice_settings
   if [ "$choice_settings" = "y" ]; then
     break
