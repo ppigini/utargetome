@@ -29,7 +29,9 @@ Table of contents:
 
 
 
-Utargetome is a computational tool based on the BLAST algorithm that predicts the potential targets (or "targetome") of engineered U1-snRNAs whose antisense sequence has been customized for mutated donor splice sites.
+Utargetome is a computational tool based on the BLAST algorithm that predicts the potential targets 
+(or "targetome") of engineered U1-snRNAs whose antisense sequence has been customized for mutated 
+donor splice sites.
 
 
 
@@ -37,11 +39,14 @@ The rationale behind the prediction pipeline is based on the following principle
 
 • The search for targets is conducted across all genomic sequences that produce annotated transcripts.
 
-• Targets are categorized based on their location within exons or introns, or their proximity to donor (5'-SSs) or acceptor splice sites (3'-SSs).
+• Targets are categorized based on their location within exons or introns, or their proximity 
+to donor (5'-SSs) or acceptor splice sites (3'-SSs).
 
-• Targets that are found on different annotated transcripts but that correspond to the same genomic sequence are considered as distinct targets, as they may have different effects.
+• Targets that are found on different annotated transcripts but that correspond to the same 
+genomic sequence are considered as distinct targets, as they may have different effects.
 
-• Targets that result from different annealing registers but occupy the same position within the same transcript (sharing the same 5'-most position) are considered as a single target.
+• Targets that result from different annealing registers but occupy the same position within 
+the same transcript (sharing the same 5'-most position) are considered as a single target.
 
 
 
@@ -59,7 +64,8 @@ Utargetome has the following software requirements:
 
   % python
 
-  The pipeline has been developed and tested using Python 3.9.18. The specific version of Python can be installed from the following site:
+  The pipeline has been developed and tested using Python 3.9.18. The specific version of 
+  Python can be installed from the following site:
 
   https://www.python.org/downloads/
 
@@ -73,7 +79,9 @@ Utargetome has the following software requirements:
 
   https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/
 
-Importantly, utargetome has been developed, tested and validated using an 8-core CPU and 32 GB of RAM in macOS, integrating Python 3.9 and BLAST 2.14.1+. Newer or older versions of Python and BLAST might work as well, but they have not been tested.
+Importantly, utargetome has been developed, tested and validated using an 8-core CPU and 32 GB 
+of RAM in macOS, integrating Python 3.9 and BLAST 2.14.1+. Newer or older versions of Python 
+and BLAST might work as well, but they have not been tested.
 
 
 
@@ -85,7 +93,8 @@ Importantly, utargetome has been developed, tested and validated using an 8-core
 
 
 
-Utargetome can be executed from terminal using its executable file (which can be found within the package folder) as follows:
+Utargetome can be executed from terminal using its executable file (which can be found within 
+the package folder) as follows:
 
 % .../utargetome/utargetome_exe
 
@@ -98,27 +107,47 @@ In case it is necessary, the utargetome file can be made executable using chmod:
 
 The following directories must be provided after executing utargetome:
 
-• The query file, which must be in .fa format. All U1s in the query file must have the same length, and it is recommended not to include any additional ">" in the U1 name. Also, different queries should not have same headers. An example query file containing the antisense sequences of the human endogenous U1 (“>U1_endogenous”) and its reverse-complementary control (">U1_control") is provided along with the utargetome package. 
+• The query file, which must be in .fa format. All U1s in the query file must have the same 
+length, and it is recommended not to include any additional ">" in the U1 name. Also, 
+different queries should not have same headers. An example query file containing the 
+antisense sequences of the human endogenous U1 (“>U1_endogenous”) and its 
+reverse-complementary control (">U1_control") is provided along with the utargetome package. 
 
-• The genome assembly file, which must be in .fna format. The recommended release is GRCh38, and it can be downloaded from the following site:
+• The genome assembly file, which must be in .fna format. The recommended release is GRCh38, 
+and it can be downloaded from the following site:
 
   https://ftp.ncbi.nlm.nih.gov/refseq/H_sapiens/annotation/GRCh38_latest/refseq_identifiers/
 
-• The genome annotation file, which must be in .gz format. The recommended release is GRCh38.108, and can be downloaded from the following site:
+• The genome annotation file, which must be in .gz format. The recommended release is 
+GRCh38.108, and can be downloaded from the following site:
 
   https://ftp.ensembl.org/pub/release-108/gtf/homo_sapiens/
 
-• The directory for the output files. All files will be found within the folder utargetome_output/. Note that each execution will first delete all the files in the folder and will then generate new files. For results interpretation please refer to the section below (5. Interpreting results).
+• The directory for the output files. All files will be found within the folder 
+utargetome_output/. Note that each execution will first delete all the files in the folder 
+and will then generate new files. For results interpretation please refer to the section below 
+(5. Interpreting results).
 
-After providing the input directories, utargetome will ask whether to proceed with default or custom search settings. For custom settings please refer to the section below (4. Custom search settings). Default settings will take as input 11 nt-long sequences and search for all targets across exons and introns, or overlapping with 5'-SSs or 3'-SSs, considering at least 9 base-pairings in any type of annealing register; in addition to the normal output files with target counts, target coordinates will be printed for 5'-SSs. Custom settings can also be provided as a .txt file (a template is found in the folder examples/).
+After providing the input directories, utargetome will ask whether to proceed with default 
+or custom search settings. For custom settings please refer to the section below (4. Custom 
+search settings). Default settings will take as input 11 nt-long sequences and search for 
+all targets across exons and introns, or overlapping with 5'-SSs or 3'-SSs, considering at 
+least 9 base-pairings in any type of annealing register; in addition to the normal output 
+files with target counts, target coordinates will be printed for 5'-SSs. Custom settings 
+can also be provided as a .txt file (a template is found in the folder examples/).
 
 
 
-NOTE** If the blastn database has already been generated in a previous run, it will be used in the current run without generating a new one, therefore saving processing time.
+NOTE** If the blastn database has already been generated in a previous run, it will be 
+used in the current run without generating a new one, therefore saving processing time.
 
-NOTE*** The files in the “pipeline_targetome/temp/” folder could have a large size, especially for large lists of input sequences and/or for analyses that include many mismatches. For example, targetome prediction for 50 U1 sequences could generate up to 100 GB of files if allowing up to 3 mismatches in all the annealing registers.
+NOTE*** The files in the “pipeline_targetome/temp/” folder could have a large size, 
+especially for large lists of input sequences and/or for analyses that include many 
+mismatches. For example, targetome prediction for 50 U1 sequences could generate up to 
+100 GB of files if allowing up to 3 mismatches in all the annealing registers.
 
-NOTE**** Utargetome takes from 30 to 60 minutes to predict the targetome of 2 input sequences with default search settings and using an 8-core CPU and 32 GB of RAM.
+NOTE**** Utargetome takes from 30 to 60 minutes to predict the targetome of 2 input 
+sequences with default search settings and using an 8-core CPU and 32 GB of RAM.
 
 
 
@@ -132,49 +161,76 @@ NOTE**** Utargetome takes from 30 to 60 minutes to predict the targetome of 2 in
 
 The following search settings can be customized when running utargetome:
 
-• the following databases can be chosen for searching the off-targets (possible choices: “yes/no”):
+• the following databases can be chosen for searching the off-targets (possible choices: 
+“yes/no”):
 
-  •• "exons" includes all annotated exons from all annotated genes (excluding mitochondrial genes); only targets that are fully included within the exon are counted;
+  •• "exons" includes all annotated exons from all annotated genes (excluding mitochondrial 
+genes); only targets that are fully included within the exon are counted;
 
-  •• "introns" includes all annotated introns from all annotated genes (excluding mitochondrial genes); only targets that are fully included within the intron are counted;
+  •• "introns" includes all annotated introns from all annotated genes (excluding 
+mitochondrial genes); only targets that are fully included within the intron are counted;
 
-  •• "5SSs" includes the region spanning from position -100 to +100 around the donor splice site (5’-SS) of all annotated exons from all annotated genes (excluding mitochondrial genes);
+  •• "5SSs" includes the region spanning from position -100 to +100 around the donor splice 
+site (5’-SS) of all annotated exons from all annotated genes (excluding mitochondrial genes);
 
-  •• "3SSs" includes the region spanning from position -100 to +100 around the acceptor splice site (3’-SS) of all annotated exons from all annotated genes (excluding mitochondrial genes);
+  •• "3SSs" includes the region spanning from position -100 to +100 around the acceptor 
+splice site (3’-SS) of all annotated exons from all annotated genes (excluding mitochondrial 
+genes);
 
-• the minimum number of annealed base-pairs between the antisense strand and the target strand (with up to 7 mismatches, including the mismatches generated by the alternative structure) can be specified for the following annealing registers (single annealing register can be excluded from the analysis by indicating "no”):
+• the minimum number of annealed base-pairs between the antisense strand and the target 
+strand (with up to 7 mismatches, including the mismatches generated by the alternative 
+structure) can be specified for the following annealing registers (single annealing register 
+can be excluded from the analysis by indicating "no”):
 
-  •• "full" indicates the annealing register without any alternative structure, except for mismatches; the value must be set as: (antisense length – 7) ≤ value ≤ (antisense length);
+  •• "full" indicates the annealing register without any alternative structure, except for 
+mismatches; the value must be set as: (antisense length – 7) ≤ value ≤ (antisense length);
 
-  •• "BS1" indicates the annealing register carrying a single-nucleotide bulge on the target strand; the value must be set as: (antisense length – 7) ≤ value ≤ (antisense length);
+  •• "BS1" indicates the annealing register carrying a single-nucleotide bulge on the target 
+strand; the value must be set as: (antisense length – 7) ≤ value ≤ (antisense length);
 
-  •• "BS2" indicates the annealing register carrying a double-nucleotide bulge on the target strand; the value must be set as: (antisense length – 7) ≤ value ≤ (antisense length);
+  •• "BS2" indicates the annealing register carrying a double-nucleotide bulge on the target 
+strand; the value must be set as: (antisense length – 7) ≤ value ≤ (antisense length);
 
-  •• "BA1" indicates the annealing register carrying a single-nucleotide bulge on the antisense strand; the value must be set as: (antisense length – 7) ≤ value ≤ (antisense length – 1);
+  •• "BA1" indicates the annealing register carrying a single-nucleotide bulge on the antisense 
+strand; the value must be set as: (antisense length – 7) ≤ value ≤ (antisense length – 1);
 
-  •• "BA2" indicates the annealing register carrying a double-nucleotide bulge on the antisense strand; the value must be set as: (antisense length – 7) ≤ value ≤ (antisense length – 2);
+  •• "BA2" indicates the annealing register carrying a double-nucleotide bulge on the antisense 
+strand; the value must be set as: (antisense length – 7) ≤ value ≤ (antisense length – 2);
 
-  •• "ALS" indicates the annealing register carrying an asymmetric loop with the long strand on the target sequence; the value must be set as: (antisense length – 7) ≤ value ≤ (antisense length – 1);
+  •• "ALS" indicates the annealing register carrying an asymmetric loop with the long strand on 
+the target sequence; the value must be set as: (antisense length – 7) ≤ value ≤ 
+(antisense length – 1);
 
-  •• "ALA" indicates the annealing register carrying an asymmetric loop with the long strand on the antisense sequence; the value must be set as: (antisense length – 7) ≤ value ≤ (antisense length – 2);
+  •• "ALA" indicates the annealing register carrying an asymmetric loop with the long strand on 
+the antisense sequence; the value must be set as: (antisense length – 7) ≤ value ≤ 
+(antisense length – 2);
 
-• the positional range in which the targets for 5-SSs or 3-SSs must be searched can be specified by using the following options:
+• the positional range in which the targets for 5-SSs or 3-SSs must be searched can be specified 
+by using the following options:
 
   •• "range" includes all positions within a range from -50 to +50 from the splice site; 
 
-  •• "cumulative" merges the counts for all the positions included between -10 and +25 for 5-SSs, and between -10 and + 1 for 3-SSs;
+  •• "cumulative" merges the counts for all the positions included between -10 and +25 for 5-SSs, 
+and between -10 and + 1 for 3-SSs;
 
   •• "overlapping" includes any target overlapping with the splice site;
 
-  •• specific positions can be specified as "n1,n2,n3,...n", where “n” is any single value included between (or equal to) -50 and +50 and it indicates the position of the 5’-most nucleotide of the target sequence (multiple values must be comma-separated with no space).
+  •• specific positions can be specified as "n1,n2,n3,...n", where “n” is any single value 
+included between (or equal to) -50 and +50 and it indicates the position of the 5’-most nucleotide 
+of the target sequence (multiple values must be comma-separated with no space).
 
-• the "print" option defines whether to print in a separate file the targets' coordinates found in a specific dataset (possible choices: “yes/no”);
+• the "print" option defines whether to print in a separate file the targets' coordinates found 
+in a specific dataset (possible choices: “yes/no”);
 
-• the "partitions" option defines how many partitions should be generated for the databases; the default value is 1, but it can be increased (natural numbers only) to reduce the demand of processing power.
+• the "partitions" option defines how many partitions should be generated for the databases; 
+the default value is 1, but it can be increased (natural numbers only) to reduce the demand 
+of processing power.
 
 
 
-Note that, in order to counting the total number of targets of a U1-snRNA target counts from all databases must be summed (exons + introns + 5'-SSs + 3'-SSs) and the "overlapping" option must be chosen for 5'-SSs and 3'-SSs.
+Note that, in order to counting the total number of targets of a U1-snRNA target counts from 
+all databases must be summed (exons + introns + 5'-SSs + 3'-SSs) and the "overlapping" option 
+must be chosen for 5'-SSs and 3'-SSs.
 
 
 
@@ -186,15 +242,27 @@ Note that, in order to counting the total number of targets of a U1-snRNA target
 
 
 
-All prediction results can be found in the output folder utargetome_output/. Two types of files are generated: a) target counts and (if specified) b) lists of targets with coordinates. Example output files generated with default search settings from the example query file are provided along with the utargetome package.
+All prediction results can be found in the output folder utargetome_output/. Two types of 
+files are generated: a) target counts and (if specified) b) lists of targets with coordinates. 
+Example output files generated with default search settings from the example query file are 
+provided along with the utargetome package.
 
 
 
-Target counts are in tab format and are sorted in different files based on the analyzed database (“counts_exons.txt”, “counts_introns.txt”, “counts_5SSs.txt” or “counts_3SSs.txt”). In each file, counts are displayed for each annealing register ("full", "BS1", "BS2", "BA1", "BA2", "ALS", "ALA") and annealing registers with allowed mismatches ("mm"); for example, "BS1.mm3" indicates off-targets with a single-nucleotide bulge on the sense strand. Target counts are also indicated for all annealing registers grouped together based on similar minimum numbers of annealed base-pairs (e.g. "full+BS1+BS2", "full+full.mm1+BS1+BS1.mm1+BS2+BS2.mm1+BA1+ALS", etc.).  
+Target counts are in tab format and are sorted in different files based on the analyzed database 
+(“counts_exons.txt”, “counts_introns.txt”, “counts_5SSs.txt” or “counts_3SSs.txt”). In each file, 
+counts are displayed for each annealing register ("full", "BS1", "BS2", "BA1", "BA2", "ALS", "ALA") 
+and annealing registers with allowed mismatches ("mm"); for example, "BS1.mm3" indicates 
+off-targets with a single-nucleotide bulge on the sense strand. Target counts are also indicated 
+for all annealing registers grouped together based on similar minimum numbers of annealed base-pairs 
+(e.g. "full+BS1+BS2", "full+full.mm1+BS1+BS1.mm1+BS2+BS2.mm1+BA1+ALS", etc.).  
 
 
 
-Target coordinates are listed in different files based on the analyzed database (“targets_exons.txt”, “targets_introns.txt”, “targets_5SSs.txt” or “targets_3SSs.txt”). For each target all predicted annealing registers are indicated. These files are generated only if indicated in the custom search settings.
+Target coordinates are listed in different files based on the analyzed database 
+(“targets_exons.txt”, “targets_introns.txt”, “targets_5SSs.txt” or “targets_3SSs.txt”). For each 
+target all predicted annealing registers are indicated. These files are generated only if indicated 
+in the custom search settings.
 
 
 
@@ -204,10 +272,15 @@ Target coordinates are listed in different files based on the analyzed database 
 
 6. License
 
-This project is licensed under the MIT License, which requires proper attribution as described in the LICENSE file.
+This project is licensed under the MIT License, which requires proper attribution as described in 
+the LICENSE file.
 
-**Academic Citations: If you use this code in your academic work, we kindly request that you cite it as follows: [Author Name(s), Project Name, GitHub URL]. Please contact us if you have any questions or need more information for citations.
+**Academic Citations: If you use this code in your academic work, we kindly request that you cite it 
+as follows: [Author Name(s), Project Name, GitHub URL]. Please contact us if you have any questions 
+or need more information for citations.
 
-**Commercial Use: Commercial users are encouraged to contact us for a separate commercial use agreement that may include terms related to licensing, royalties, and revenue sharing. Such an agreement will be negotiated independently of this license.
+**Commercial Use: Commercial users are encouraged to contact us for a separate commercial use 
+agreement that may include terms related to licensing, royalties, and revenue sharing. Such an 
+agreement will be negotiated independently of this license.
 
 For full details, see the LICENSE file.
