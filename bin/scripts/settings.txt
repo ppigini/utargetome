@@ -64,6 +64,10 @@ while true; do
     echo "directory does not exist, please provide valid directory"
   fi
 done
+if [ -d $output_dir/utargetome_output ]; then
+  rm -r $output_dir/utargetome_output
+fi
+mkdir -p $output_dir/utargetome_output
 
 while true; do
   echo "do you wish to input the search settings (y/n, if 'n' default settings will apply)?"

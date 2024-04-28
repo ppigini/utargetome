@@ -2,7 +2,7 @@ def ANALYSIS():
     # SETUP
     import os
     directory = os.getcwd()
-    if 'results' not in os.listdir(directory, '/temp'):
+    if 'results' not in os.listdir(directory):
         os.mkdir(''.join([directory, '/results']))
     for a in os.listdir(''.join([directory, '/results/'])):
         os.remove(os.path.join(''.join([directory, '/results/']), a))
@@ -24,7 +24,7 @@ def ANALYSIS():
     file_output = ''.join([directory, '/results/'])
     databases = []
     for x in settings['database']:
-        if settings['database'][x] == 'yes':
+        if settings['database'][x] == 'y':
             databases.append(x)
     registers = {'norm' : {}, 'mm1_norm' : {}, 'mm2_norm' : {}, 'mm3_norm' : {}, 'mm4_norm' : {}, 'mm5_norm' : {}, 'mm6_norm' : {}, 'mm7_norm' : {},
                   'BS1' : {}, 'mm1_BS1' : {}, 'mm2_BS1' : {}, 'mm3_BS1' : {}, 'mm4_BS1' : {}, 'mm5_BS1' : {}, 'mm6_BS1' : {}, 'mm7_BS1' : {},
@@ -70,7 +70,7 @@ def ANALYSIS():
                         positions.append(str(int(a) + 100))
         results = {} # storage for counts
         results_registers = {} # storage for combinations of registers
-        if settings['print'][x] == 'yes': # storage for targets to be printed
+        if settings['print'][x] == 'y': # storage for targets to be printed
             results_print = {}
         # COLLECTING THE HITS FOR EACH REGISTER
         for y in registers:
@@ -255,7 +255,7 @@ def ANALYSIS():
                                                 results_filtered[b][e][g] = ''
             if results_registers['+'.join(y)] != [] and x in ['exons', 'introns']:
                 # storing targets for printing
-                if settings['print'][x] == 'yes':
+                if settings['print'][x] == 'y':
                     for b in results_filtered:
                         if b not in results_print:
                             results_print[b] = {}
@@ -284,7 +284,7 @@ def ANALYSIS():
                         results[a]['+'.join(y)] = results_counts[a]
             elif results_registers['+'.join(y)] != [] and x in ['5SSs', '3SSs']:
                 # storing targets for printing
-                if settings['print'][x] == 'yes':
+                if settings['print'][x] == 'y':
                     for b in results_filtered:
                         if b not in results_print:
                             results_print[b] = {}
@@ -379,7 +379,7 @@ def ANALYSIS():
                                     output.write('\t')
                                     output.write(results[b][c][d])
         # printing targets
-        if settings['print'][x] == 'yes':
+        if settings['print'][x] == 'y':
             with open(''.join([file_output, 'targets_', x, '.txt']), 'x') as output:
                 if x in ['exons', 'introns']:
                     output.write('\n')
