@@ -1,22 +1,37 @@
 
 
+
 UTARGETOME: TARGETOME PREDICTION PIPELINE FOR ENGINEERED U1 SMALL NUCLEAR RNAs
 
+
+
 Table of contents:
+
 1. Rationale
+
 2. Software requirements
+
 3. Executing utargetome
+
 4. Custom search settings
+
 5. Interpreting results
+
 6. License
+
 
 
 ###########################################################################
 
 
+
 1. Rationale
 
-Utargetome is a computational tool based on the BLAST algorithm that predicts the potential targets (targetome) of engineered U1-snRNAs whose antisense sequence has been customized for mutated donor splice sites. The main goal of this pipeline is to minimize the off-target effects of engineered U1-snRNAs designed for clinical applications.
+
+
+Utargetome is a computational tool based on the BLAST algorithm that predicts the potential targets (or "targetome") of engineered U1-snRNAs whose antisense sequence has been customized for mutated donor splice sites.
+
+
 
 The rationale behind the prediction pipeline is based on the following principles:
 
@@ -29,7 +44,9 @@ The rationale behind the prediction pipeline is based on the following principle
 • Targets that result from different annealing registers but occupy the same position within the same transcript (sharing the same 5'-most position) are considered as a single target.
 
 
+
 ###########################################################################
+
 
 
 2. Software requirements
@@ -59,10 +76,14 @@ Utargetome has the following software requirements:
 Importantly, utargetome has been developed, tested and validated using an 8-core CPU and 32 GB of RAM in macOS, integrating Python 3.9 and BLAST 2.14.1+. Newer or older versions of Python and BLAST might work as well, but they have not been tested.
 
 
+
 ###########################################################################
 
 
+
 3. Executing utargetome
+
+
 
 Utargetome can be executed from terminal using its executable file (which can be found within the package folder) as follows:
 
@@ -72,6 +93,8 @@ In case it is necessary, the utargetome file can be made executable using chmod:
 
 % chmod a+x .../utargetome/utargetome_exe
 % .../utargetome/utargetome_exe
+
+
 
 The following directories must be provided after executing utargetome:
 
@@ -87,7 +110,9 @@ The following directories must be provided after executing utargetome:
 
 • The directory for the output files. All files will be found within the folder utargetome_output/. Note that each execution will first delete all the files in the folder and will then generate new files. For results interpretation please refer to the section below (5. Interpreting results).
 
-After providing the input directories, utargetome will ask whether to proceed with default or custom search settings. For custom settings please refer to the section below (4. Custom search settings). Default settings will take as input 11 nt-long sequences and search for all targets across exons and introns, or overlapping with 5'-SSs or 3'-SSs, considering at least 9 base-pairings in any type of annealing register; in addition to the normal output files with target counts, target coordinates will be printed for 5'-SSs.
+After providing the input directories, utargetome will ask whether to proceed with default or custom search settings. For custom settings please refer to the section below (4. Custom search settings). Default settings will take as input 11 nt-long sequences and search for all targets across exons and introns, or overlapping with 5'-SSs or 3'-SSs, considering at least 9 base-pairings in any type of annealing register; in addition to the normal output files with target counts, target coordinates will be printed for 5'-SSs. Custom settings can also be provided as a .txt file (a template is found in the folder examples/).
+
+
 
 NOTE** If the blastn database has already been generated in a previous run, it will be used in the current run without generating a new one, therefore saving processing time.
 
@@ -96,10 +121,14 @@ NOTE*** The files in the “pipeline_targetome/temp/” folder could have a larg
 NOTE**** Utargetome takes from 30 to 60 minutes to predict the targetome of 2 input sequences with default search settings and using an 8-core CPU and 32 GB of RAM.
 
 
+
 ###########################################################################
 
 
+
 4. Custom search settings
+
+
 
 The following search settings can be customized when running utargetome:
 
@@ -143,22 +172,34 @@ The following search settings can be customized when running utargetome:
 
 • the "partitions" option defines how many partitions should be generated for the databases; the default value is 1, but it can be increased (natural numbers only) to reduce the demand of processing power.
 
+
+
 Note that, in order to counting the total number of targets of a U1-snRNA target counts from all databases must be summed (exons + introns + 5'-SSs + 3'-SSs) and the "overlapping" option must be chosen for 5'-SSs and 3'-SSs.
 
 
+
 ###########################################################################
+
 
 
 5. Interpreting results
 
+
+
 All prediction results can be found in the output folder utargetome_output/. Two types of files are generated: a) target counts and (if specified) b) lists of targets with coordinates. Example output files generated with default search settings from the example query file are provided along with the utargetome package.
 
+
+
 Target counts are in tab format and are sorted in different files based on the analyzed database (“counts_exons.txt”, “counts_introns.txt”, “counts_5SSs.txt” or “counts_3SSs.txt”). In each file, counts are displayed for each annealing register ("full", "BS1", "BS2", "BA1", "BA2", "ALS", "ALA") and annealing registers with allowed mismatches ("mm"); for example, "BS1.mm3" indicates off-targets with a single-nucleotide bulge on the sense strand. Target counts are also indicated for all annealing registers grouped together based on similar minimum numbers of annealed base-pairs (e.g. "full+BS1+BS2", "full+full.mm1+BS1+BS1.mm1+BS2+BS2.mm1+BA1+ALS", etc.).  
+
+
 
 Target coordinates are listed in different files based on the analyzed database (“targets_exons.txt”, “targets_introns.txt”, “targets_5SSs.txt” or “targets_3SSs.txt”). For each target all predicted annealing registers are indicated. These files are generated only if indicated in the custom search settings.
 
 
+
 ###########################################################################
+
 
 
 6. License
