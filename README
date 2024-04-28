@@ -8,8 +8,7 @@ Table of contents:
 3. Executing utargetome
 4. Custom search settings
 5. Interpreting results
-6. Developers
-7. License
+6. License
 
 
 ###########################################################################
@@ -162,15 +161,7 @@ Target coordinates are listed in different files based on the analyzed database 
 ###########################################################################
 
 
-6. Developers
-
-Paolo Pigini, PhD
-
-
-###########################################################################
-
-
-7. License
+6. License
 
 This project is licensed under the MIT License, which requires proper attribution as described in the LICENSE file.
 
