@@ -1,4 +1,6 @@
 
+###########################################################################
+
 
 
 UTARGETOME: TARGETOME PREDICTION PIPELINE FOR ENGINEERED U1 SMALL NUCLEAR RNAs
@@ -17,7 +19,9 @@ Table of contents:
 
 5. Interpreting results
 
-6. License
+6. Developers
+
+7. License
 
 
 
@@ -55,6 +59,8 @@ the same transcript (sharing the same 5'-most position) are considered as a sing
 
 
 2. Software requirements
+
+
 
 Utargetome has the following software requirements:
 
@@ -270,7 +276,21 @@ in the custom search settings.
 
 
 
-6. License
+6. Developers
+
+
+
+Paolo Pigini, PhD (p.pigini.phd@gmail.com)
+
+
+
+###########################################################################
+
+
+
+7. License
+
+
 
 This project is licensed under the MIT License, which requires proper attribution as described in 
 the LICENSE file.
@@ -284,3 +304,7 @@ agreement that may include terms related to licensing, royalties, and revenue sh
 agreement will be negotiated independently of this license.
 
 For full details, see the LICENSE file.
+
+
+
+###########################################################################
