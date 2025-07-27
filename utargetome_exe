@@ -1,9 +1,68 @@
+#!/bin/bash
+
+echo "
+
+HELLO, THANK YOU FOR USING UTARGETOME!
+
+            _ 
+           / \                  __    __
+          |   |                /  \  /  \\
+        _  \ /  _              \  /  \  /
+       / \_| |_/ \               |     |
+      |   _   _   |
+       \_/ | | \_/               o     o
+           | |
+       3'__| |_____________5'
+               |||||||||||
+_ _ _ ____________
+                  |__*________________ _ _ _ 
+_ _ _ ____________|
+
+
+"
+
+while getopts ":i:g:a:s:v:p:o:" opt; do
+  case $opt in
+    i) input_file="$OPTARG"
+    ;;
+    g) assembly_file="$OPTARG"
+    ;;
+    a) annotation_file="$OPTARG"
+    ;;
+    s) site="$OPTARG"
+    ;;
+    v) value="$OPTARG"
+    ;;
+    p) printing="$OPTARG"
+    ;;
+    o) output_file="$OPTARG"
+    ;;
+    \?) echo "Invalid option -$OPTARG" >&2
+        exit 1
+    ;;
+  esac
+done
+export U1_INPUT_FILE="$input_file"
+export ASSEMBLY_FILE="$assembly_file"
+export ANNOTATION_FILE="$annotation_file"
+export U1_SITE="$site"
+export U1_VALUE="$value"
+export U1_PRINT="$printing"
+export U1_OUTPUT_FILE="$output_file"
 
 script_dir=$(dirname "$0")
 cd $script_dir/bin
 
-chmod a+x scripts/settings.txt
-scripts/settings.txt
+mkdir -p ./input
+rm -rf ./input/*
+cp $U1_INPUT_FILE ./input/query.fa
+cp $ASSEMBLY_FILE ./input/assembly.fna
+cp $ANNOTATION_FILE ./input/annotation.gtf
+mkdir -p ./results
+rm -rf ./results/*
+
+chmod a+x scripts/settings.py
+python scripts/settings.py
 
 chmod a+x scripts/input.py
 python scripts/input.py
@@ -12,8 +71,8 @@ echo "
 
 RUNNING BLAST"
 
-chmod a+x scripts/blast.txt
-scripts/blast.txt
+chmod a+x scripts/blast_exe
+scripts/blast_exe
 
 
 echo "RUNNING ANALYSIS
@@ -23,5 +82,12 @@ echo "RUNNING ANALYSIS
 chmod a+x scripts/analysis.py
 python scripts/analysis.py
 
-chmod a+x scripts/export.txt
-scripts/export.txt
+mkdir -p $U1_OUTPUT_FILE/utargetome_output
+mv ./results/* $U1_OUTPUT_FILE/utargetome_output
+rm -rf ./input/*
+rm -rf ./temp/BLAST/*
+rm -rf ./temp/targetome/*
+
+echo "
+
+ANALYSIS COMPLETE"
