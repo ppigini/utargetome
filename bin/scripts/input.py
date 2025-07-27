@@ -1184,7 +1184,7 @@ def INPUT():
         del library
         del file_U1s
         # CREATING THE SCRIPT FOR BLAST
-        with open(''.join([directory, '/scripts/blast.txt']), 'w') as output:
+        with open(''.join([directory, '/scripts/blast_exe']), 'w') as output:
             for a in [a for a in settings['database'] if settings['database'][a] == 'y']:
                 if a == 'introns':
                     chunk_numbers = 11 * int(settings['partitions']['number'])
