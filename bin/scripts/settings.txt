@@ -1,449 +1,213 @@
-echo "
 
-HELLO, THANK YOU FOR USING UTARGETOME!
+import os
 
-            _                    _____ 
-           / \\                  /     \\    |
-          |   |                /       \\   |
-        _  \ /  _              \       /   |
-       / \_| |_/ \\              \     /    |
-      |   _   _   |                  /     |
-       \_/ | | \_/                  |      |
-           | |                      |      |
-       3'__| |_____________5'
-               |||||||||||          o      o
-_ _ _ ____________
-                  |__*________________ _ _ _ 
-_ _ _ ____________|
+directory = os.getcwd()
+position = os.environ.get("U1_SITE")
+value = os.environ.get("U1_VALUE")
+print_option = os.environ.get("U1_PRINT")
 
+if value == 'complementary':
+	value_full = '11'
+	value_BS1 = 'n'
+	value_BS2 = 'n'
+	value_BA1 = 'n'
+	value_BA2 = 'n'
+	value_ALS = 'n'
+	value_ALA = 'n'
+elif value == '11':
+	value_full = '11'
+	value_BS1 = '11'
+	value_BS2 = '11'
+	value_BA1 = 'n'
+	value_BA2 = 'n'
+	value_ALS = 'n'
+	value_ALA = 'n'
+elif value == '10':
+	value_full = '10'
+	value_BS1 = '10'
+	value_BS2 = '10'
+	value_BA1 = '10'
+	value_BA2 = 'n'
+	value_ALS = '10'
+	value_ALA = 'n'
+else:
+	value_full = value
+	value_BS1 = value
+	value_BS2 = value
+	value_BA1 = value
+	value_BA2 = value
+	value_ALS = value
+	value_ALA = value
 
-"
+if position == 'all':
+	position_exons = 'y'
+	position_introns = 'y'
+	position_5SSs = 'y'
+	position_3SSs = 'y'
+	position_5SSs_type = 'overlapping'
+	position_3SSs_type = 'overlapping'
+elif position == 'exons':
+	position_exons = 'y'
+	position_introns = 'n'
+	position_5SSs = 'n'
+	position_3SSs = 'n'
+	position_5SSs_type = 'overlapping'
+	position_3SSs_type = 'overlapping'
+elif position == 'introns':
+	position_exons = 'n'
+	position_introns = 'y'
+	position_5SSs = 'n'
+	position_3SSs = 'n'
+	position_5SSs_type = 'overlapping'
+	position_3SSs_type = 'overlapping'
+elif position == 'splice_overlapping':
+	position_exons = 'n'
+	position_introns = 'n'
+	position_5SSs = 'y'
+	position_3SSs = 'y'
+	position_5SSs_type = 'overlapping'
+	position_3SSs_type = 'overlapping'
+elif position == 'splice_range':
+	position_exons = 'n'
+	position_introns = 'n'
+	position_5SSs = 'y'
+	position_3SSs = 'y'
+	position_5SSs_type = 'range'
+	position_3SSs_type = 'range'
+elif position == '5SSs_overlapping':
+	position_exons = 'n'
+	position_introns = 'n'
+	position_5SSs = 'y'
+	position_3SSs = 'n'
+	position_5SSs_type = 'overlapping'
+	position_3SSs_type = 'overlapping'
+elif position == '5SSs_range':
+	position_exons = 'n'
+	position_introns = 'n'
+	position_5SSs = 'y'
+	position_3SSs = 'n'
+	position_5SSs_type = 'range'
+	position_3SSs_type = 'range'
+elif position == '3SSs_overlapping':
+	position_exons = 'n'
+	position_introns = 'n'
+	position_5SSs = 'n'
+	position_3SSs = 'y'
+	position_5SSs_type = 'overlapping'
+	position_3SSs_type = 'overlapping'
+elif position == '3SSs_range':
+	position_exons = 'n'
+	position_introns = 'n'
+	position_5SSs = 'n'
+	position_3SSs = 'y'
+	position_5SSs_type = 'range'
+	position_3SSs_type = 'range'
+elif position == 'no_5SSs':
+	position_exons = 'y'
+	position_introns = 'y'
+	position_5SSs = 'n'
+	position_3SSs = 'y'
+	position_5SSs_type = 'overlapping'
+	position_3SSs_type = 'overlapping'
+elif position == 'exons_3SSs':
+	position_exons = 'y'
+	position_introns = 'n'
+	position_5SSs = 'n'
+	position_3SSs = 'y'
+	position_5SSs_type = 'overlapping'
+	position_3SSs_type = 'overlapping'
 
-mkdir -p ./input
-rm -rf ./input/*
+if print_option == 'no':
+	print_option_exons = 'n'
+	print_option_introns = 'n'
+	print_option_5SSs = 'n'
+	print_option_3SSs = 'n'
+elif print_option == 'exons':
+	print_option_exons = 'y'
+	print_option_introns = 'n'
+	print_option_5SSs = 'n'
+	print_option_3SSs = 'n'
+elif print_option == 'introns':
+	print_option_exons = 'n'
+	print_option_introns = 'y'
+	print_option_5SSs = 'n'
+	print_option_3SSs = 'n'
+elif print_option == '5SSs':
+	print_option_exons = 'n'
+	print_option_introns = 'n'
+	print_option_5SSs = 'y'
+	print_option_3SSs = 'n'
+elif print_option == '3SSs':
+	print_option_exons = 'n'
+	print_option_introns = 'n'
+	print_option_5SSs = 'n'
+	print_option_3SSs = 'y'
+elif print_option == 'exons_3SSs':
+	print_option_exons = 'y'
+	print_option_introns = 'n'
+	print_option_5SSs = 'n'
+	print_option_3SSs = 'y'
 
-while true; do
-  echo "provide the directory for the query file (.fa)"
-  read query_dir
-  if [ -e "$query_dir" ]; then
-    break
-  else
-    echo "file does not exist, please provide valid directory"
-  fi
-done
-cp $query_dir ./input/query.fa
-
-while true; do
-  echo "provide the directory for the genome assembly file (.fna)"
-  read assembly_dir
-  if [ -e "$assembly_dir" ]; then
-    break
-  else
-    echo "file does not exist, please provide valid directory"
-  fi
-done
-cp $assembly_dir ./input/assembly.fna
-
-while true; do
-  echo "please provide the directory for the genome annotation file (.gtf)"
-  read annotation_dir
-  if [ -e "$annotation_dir" ]; then
-    break
-  else
-    echo "file does not exist, please provide valid directory"
-  fi
-done
-cp $annotation_dir ./input/annotation.gtf
-
-while true; do
-  echo "please provide the directory for the output folder (as in /user/folder/)"
-  read output_dir
-  if [ -d "$output_dir" ]; then
-    break
-  else
-    echo "directory does not exist, please provide valid directory"
-  fi
-done
-if [ -d $output_dir/utargetome_output ]; then
-  rm -r $output_dir/utargetome_output
-fi
-mkdir -p $output_dir/utargetome_output
-echo "output_dir=$output_dir
-mv ./results/* $output_dir/utargetome_output
-rm -rf ./input/*
-rm -rf ./temp/BLAST/*
-rm -rf ./temp/targetome/*" > scripts/export.txt
-
-while true; do
-  echo "do you wish to customize the search settings (y/n, if 'n' default settings will apply)?"
-  read choice_settings
-  if [ "$choice_settings" = "y" ]; then
-    break
-  elif [ "$choice_settings" = "n" ]; then
-    break
-  else
-    echo "invalid input, please enter 'y' or 'n'"
-  fi
-done
-
-if [ "$choice_settings" = "n" ]; then
-	echo "database: 
-	exons: y
-	introns: y
-	5SSs: y
-	3SSs: y
-registers: 
-	full: 9
-	BS1: 9
-	BS2: 9
-	BA1: 9
-	BA2: 9
-	ALS: 9
-	ALA: 9
-positions: 
-	5SSs: overlapping
-	3SSs: overlapping
-print: 
-	exons: n
-	introns: n
-	5SSs: y
-	3SSs: n
-partitions: 
-	number: 1" > ./input/settings.txt
-fi
-
-if [ "$choice_settings" = "y" ]; then
-  while true; do
-    echo "do you have a settings file (y/n, a template can be found in the 'examples' folder)?"
-    read choice_settings_manual
-    if [ "$choice_settings_manual" = "y" ]; then
-      break
-    elif [ "$choice_settings_manual" = "n" ]; then
-      break
-    else
-      echo "invalid input, please enter 'y' or 'n'"
-    fi
-  done
-fi
-
-if [ "$choice_settings_manual" = "y" ]; then
-  while true; do
-    echo "please provide the directory for the settings file (.txt)"
-    read settings_dir
-    if [ -e "$settings_dir" ]; then
-      break
-    else
-      echo "file does not exist, please provide valid directory"
-    fi
-  done
-  cp $settings_dir ./input/settings.txt
-fi
-
-if [ "$choice_settings_manual" = "n" ]; then
-	echo "database: " > ./input/settings.txt
-	while true; do
-	  echo "searching for targets across exons (y/n)?"
-	  read choice_exons
-	  if [ "$choice_exons" = "y" ] || [ "$choice_exons" = "n" ]; then
-	    break
-	  else
-	    echo "invalid input, please enter 'y' or 'n'"
-	  fi
-	done
-	echo "	exons: $choice_exons" >> ./input/settings.txt
-	while true; do
-	  echo "searching for targets across introns (y/n)?"
-	  read choice_introns
-	  if [ "$choice_introns" = "y" ] || [ "$choice_introns" = "n" ]; then
-	    break
-	  else
-	    echo "invalid input, please enter 'y' or 'n'"
-	  fi
-	done
-	echo "	introns: $choice_introns" >> ./input/settings.txt
-	while true; do
-	  echo "searching for targets across 5'-SSs (y/n)?"
-	  read choice_5SS
-	  if [ "$choice_5SS" = "y" ] || [ "$choice_5SS" = "n" ]; then
-	    break
-	  else
-	    echo "invalid input, please enter 'y' or 'n'"
-	  fi
-	done
-	echo "	5SSs: $choice_5SS" >> ./input/settings.txt
-	while true; do
-	  echo "searching for targets across 3'-SSs (y/n)?"
-	  read choice_3SS
-	  if [ "$choice_3SS" = "y" ] || [ "$choice_3SS" = "n" ]; then
-	    break
-	  else
-	    echo "invalid input, please enter 'y' or 'n'"
-	  fi
-	done
-	echo "	3SSs: $choice_3SS" >> ./input/settings.txt
-	echo "registers: " >> ./input/settings.txt
-	while true; do
-	  echo "what is the length of the antisense sequence?"
-	  read antisense_length
-	  if [ "$antisense_length" -gt 0 ]; then
-	    break
-	  else
-	    echo "invalid input, please enter valid number"
-	  fi
-	done
-	while true; do
-	  echo "searching for targets without alternative registers (aka 'full', y/n)?"
-	  read choice_value
-	  if [ "$choice_value" = "y" ]; then
-		while true; do
-		  echo "minimum number of annealed base pairs (integer number ≤ antisense length and ≥ antisense length - 7)?"
-		  read min_annealed
-		  if [ "$min_annealed" -ge $(($antisense_length - 7)) ] && [ "$min_annealed" -le "$antisense_length" ]; then
-		    break
-		  else
-		    echo "invalid input, please enter valid number"
-		  fi
-		done
-		break
-	  elif [ "$choice_value" = "n" ]; then
-	    min_annealed="n"
-	    break
-	  else
-	    echo "invalid input, please enter 'y' or 'n'"
-	  fi
-	done
-	echo "	full: $min_annealed" >> ./input/settings.txt
-	while true; do
-	  echo "searching for targets with a single-nucleotide bulge on the sense strand (aka 'BS1', y/n)?"
-	  read choice_value
-	  if [ "$choice_value" = "y" ]; then
-		while true; do
-		  echo "minimum number of annealed base pairs (integer number ≤ antisense length and ≥ antisense length - 7)?"
-		  read min_annealed
-		  if [ "$min_annealed" -ge $(($antisense_length - 7)) ] && [ "$min_annealed" -le "$antisense_length" ]; then
-		    break
-		  else
-		    echo "invalid input, please enter valid number"
-		  fi
-		done
-		break
-	  elif [ "$choice_value" = "n" ]; then
-	    min_annealed="n"
-	    break
-	  else
-	    echo "invalid input, please enter 'y' or 'n'"
-	  fi
-	done
-	echo "	BS1: $min_annealed" >> ./input/settings.txt
-	while true; do
-	  echo "searching for targets with a double-nucleotide bulge on the sense strand (aka 'BS2', y/n)?"
-	  read choice_value
-	  if [ "$choice_value" = "y" ]; then
-		while true; do
-		  echo "minimum number of annealed base pairs (integer number ≤ antisense length and ≥ antisense length - 7)?"
-		  read min_annealed
-		  if [ "$min_annealed" -ge $(($antisense_length - 7)) ] && [ "$min_annealed" -le "$antisense_length" ]; then
-		    break
-		  else
-		    echo "invalid input, please enter valid number"
-		  fi
-		done
-		break
-	  elif [ "$choice_value" = "n" ]; then
-	    min_annealed="n"
-	    break
-	  else
-	    echo "invalid input, please enter 'y' or 'n'"
-	  fi
-	done
-	echo "	BS2: $min_annealed" >> ./input/settings.txt
-	while true; do
-	  echo "searching for targets with a single-nucleotide bulge on the antisense strand (aka 'BA1', y/n)?"
-	  read choice_value
-	  if [ "$choice_value" = "y" ]; then
-		while true; do
-		  echo "minimum number of annealed base pairs (integer number ≤ antisense length - 1 and ≥ antisense length - 7)?"
-		  read min_annealed
-		  if [ "$min_annealed" -ge $(($antisense_length - 7)) ] && [ "$min_annealed" -le $(($antisense_length - 1)) ]; then
-		    break
-		  else
-		    echo "invalid input, please enter valid number"
-		  fi
-		done
-		break
-	  elif [ "$choice_value" = "n" ]; then
-	    min_annealed="n"
-	    break
-	  else
-	    echo "invalid input, please enter 'y' or 'n'"
-	  fi
-	done
-	echo "	BA1: $min_annealed" >> ./input/settings.txt
-	while true; do
-	  echo "searching for targets with a double-nucleotide bulge on the antisense strand (aka 'BA2', y/n)?"
-	  read choice_value
-	  if [ "$choice_value" = "y" ]; then
-		while true; do
-		  echo "minimum number of annealed base pairs (integer number ≤ antisense length - 2 and ≥ antisense length - 7)?"
-		  read min_annealed
-		  if [ "$min_annealed" -ge $(($antisense_length - 7)) ] && [ "$min_annealed" -le $(($antisense_length - 2)) ]; then
-		    break
-		  else
-		    echo "invalid input, please enter valid number"
-		  fi
-		done
-		break
-	  elif [ "$choice_value" = "n" ]; then
-	    min_annealed="n"
-	    break
-	  else
-	    echo "invalid input, please enter 'y' or 'n'"
-	  fi
-	done
-	echo "	BA2: $min_annealed" >> ./input/settings.txt
-	while true; do
-	  echo "searching for targets with an asymmetric loop carrying the long side on the sense strand (aka 'ALS', y/n)?"
-	  read choice_value
-	  if [ "$choice_value" = "y" ]; then
-		while true; do
-		  echo "minimum number of annealed base pairs (integer number ≤ antisense length - 1 and ≥ antisense length - 7)?"
-		  read min_annealed
-		  if [ "$min_annealed" -ge $(($antisense_length - 7)) ] && [ "$min_annealed" -le $(($antisense_length - 1)) ]; then
-		    break
-		  else
-		    echo "invalid input, please enter valid number"
-		  fi
-		done
-		break
-	  elif [ "$choice_value" = "n" ]; then
-	    min_annealed="n"
-	    break
-	  else
-	    echo "invalid input, please enter 'y' or 'n'"
-	  fi
-	done
-	echo "	ALS: $min_annealed" >> ./input/settings.txt
-	while true; do
-	  echo "searching for targets with an asymmetric loop carrying the long side on the antisense strand (aka 'ALA', y/n)?"
-	  read choice_value
-	  if [ "$choice_value" = "y" ]; then
-		while true; do
-		  echo "minimum number of annealed base pairs (integer number ≤ antisense length - 2 and ≥ antisense length - 7)?"
-		  read min_annealed
-		  if [ "$min_annealed" -ge $(($antisense_length - 7)) ] && [ "$min_annealed" -le $(($antisense_length - 2)) ]; then
-		    break
-		  else
-		    echo "invalid input, please enter valid number"
-		  fi
-		done
-		break
-	  elif [ "$choice_value" = "n" ]; then
-	    min_annealed="n"
-	    break
-	  else
-	    echo "invalid input, please enter 'y' or 'n'"
-	  fi
-	done
-	echo "	ALA: $min_annealed" >> ./input/settings.txt
-	echo "positions: " >> ./input/settings.txt
-	if [ "$choice_5SS" = "y" ]; then
-		while true; do
-		  echo "choose the type of range around 5'SSs within which targets must be searched ('range', 'cumulative', 'overlapping' or 'n1,n2,n3,...n')?"
-		  read choice_value
-		  if [ "$choice_value" = "range" ] || [ "$choice_value" = "cumulative" ] || [ "$choice_value" = "overlapping" ] || [ "$choice_value" = "cumulative" ]; then
-		    break
-		  elif [ $(echo $choice_value | tr -d ",+-") -gt 0 ]; then
-		    break
-		  else
-		    echo "invalid input, please enter 'range', 'cumulative', 'overlapping' or 'n1,n2,n3,...n'"
-		  fi
-		done
-	elif [ "$choice_5SS" = "n" ]; then
-		choice_value="n"
-	fi
-	echo "	5SSs: $choice_value" >> ./input/settings.txt
-	if [ "$choice_3SS" = "y" ]; then
-		while true; do
-		  echo "choose the type of range around 3'SSs within which targets must be searched ('range', 'cumulative', 'overlapping' or 'n1,n2,n3,...n')?"
-		  read choice_value
-		  if [ "$choice_value" = "range" ] || [ "$choice_value" = "cumulative" ] || [ "$choice_value" = "overlapping" ] || [ "$choice_value" = "cumulative" ]; then
-		    break
-		  elif [ $(echo $choice_value | tr -d ",+-") -gt 0 ]; then
-		    break
-		  else
-		    echo "invalid input, please enter 'range', 'cumulative', 'overlapping' or 'n1,n2,n3,...n'"
-		  fi
-		done
-	elif [ "$choice_3SS" = "n" ]; then
-		choice_value="n"
-	fi
-	echo "	3SSs: $choice_value" >> ./input/settings.txt
-	echo "print: " >> ./input/settings.txt
-	if [ "$choice_exons" = "y" ]; then
-		while true; do
-		  echo "do you wish to print all targets inside exons ('y' or 'n')?"
-		  read choice_value
-		  if [ "$choice_value" = "y" ] || [ "$choice_value" = "n" ]; then
-		    break
-		  else
-		    echo "invalid input, please enter 'y' or 'n'"
-		  fi
-		done
-	elif [ "$choice_exons" = "n" ]; then
-		choice_value="n"
-	fi
-	echo "	exons: $choice_value" >> ./input/settings.txt
-	if [ "$choice_introns" = "y" ]; then
-		while true; do
-		  echo "do you wish to print all targets inside introns ('y' or 'n')?"
-		  read choice_value
-		  if [ "$choice_value" = "y" ] || [ "$choice_value" = "n" ]; then
-		    break
-		  else
-		    echo "invalid input, please enter 'y' or 'n'"
-		  fi
-		done
-	elif [ "$choice_introns" = "n" ]; then
-		choice_value="n"
-	fi
-	echo "	introns: $choice_value" >> ./input/settings.txt
-	if [ "$choice_5SS" = "y" ]; then
-		while true; do
-		  echo "do you wish to print all targets inside 5'-SSs ('y' or 'n')?"
-		  read choice_value
-		  if [ "$choice_value" = "y" ] || [ "$choice_value" = "n" ]; then
-		    break
-		  else
-		    echo "invalid input, please enter 'y' or 'n'"
-		  fi
-		done
-	elif [ "$choice_5SS" = "n" ]; then
-		choice_value="n"
-	fi
-	echo "	5SSs: $choice_value" >> ./input/settings.txt
-	if [ "$choice_3SS" = "y" ]; then
-		while true; do
-		  echo "do you wish to print all targets inside 3'-SSs ('y' or 'n')?"
-		  read choice_value
-		  if [ "$choice_value" = "y" ] || [ "$choice_value" = "n" ]; then
-		    break
-		  else
-		    echo "invalid input, please enter 'y' or 'n'"
-		  fi
-		done
-	elif [ "$choice_3SS" = "n" ]; then
-		choice_value="n"
-	fi
-	echo "	3SSs: $choice_value" >> .input/settings.txt
-	echo "partitions: " >> ./input/settings.txt
-	while true; do
-	  echo "how many partitions do you want to use for the database (integer number > 0, 1 recommended)?"
-	  read choice_value
-	  if [ "$choice_value" -gt 0 ]; then
-	    break
-	  else
-	    echo "invalid input, please enter valid number"
-	  fi
-	done
-	echo "	number: $choice_value" >> ./input/settings.txt
-fi
+with open(''.join([directory, '/input/settings.txt']), 'w') as output:
+	output.write('database: ')
+	output.write('\n')
+	output.write('	exons: ')
+	output.write(position_exons)
+	output.write('\n')
+	output.write('	introns: ')
+	output.write(position_introns)
+	output.write('\n')
+	output.write('	5SSs: ')
+	output.write(position_5SSs)
+	output.write('\n')
+	output.write('	3SSs: ')
+	output.write(position_3SSs)
+	output.write('\n')
+	output.write('registers: ')
+	output.write('\n')
+	output.write('	full: ')
+	output.write(value_full)
+	output.write('\n')
+	output.write('	BS1: ')
+	output.write(value_BS1)
+	output.write('\n')
+	output.write('	BS2: ')
+	output.write(value_BS2)
+	output.write('\n')
+	output.write('	BA1: ')
+	output.write(value_BA1)
+	output.write('\n')
+	output.write('	BA2: ')
+	output.write(value_BA2)
+	output.write('\n')
+	output.write('	ALS: ')
+	output.write(value_ALS)
+	output.write('\n')
+	output.write('	ALA: ')
+	output.write(value_ALA)
+	output.write('\n')
+	output.write('positions: ')
+	output.write('\n')
+	output.write('	5SSs: ')
+	output.write(position_5SSs_type)
+	output.write('\n')
+	output.write('	3SSs: ')
+	output.write(position_3SSs_type)
+	output.write('\n')
+	output.write('print: ')
+	output.write('\n')
+	output.write('	exons: ')
+	output.write(print_option_exons)
+	output.write('\n')
+	output.write('	introns: ')
+	output.write(print_option_introns)
+	output.write('\n')
+	output.write('	5SSs: ')
+	output.write(print_option_5SSs)
+	output.write('\n')
+	output.write('	3SSs: ')
+	output.write(print_option_3SSs)
+	output.write('\n')
+	output.write('partitions: ')
+	output.write('\n')
+	output.write('	number: 1')
